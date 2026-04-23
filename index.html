@@ -1,537 +1,226 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>С Днём Рождения, Любимый!</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            user-select: none;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>С Днём Рождения, Любимый!</title>
 
-        body {
-            min-height: 100vh;
-            background: linear-gradient(145deg, #ffd9e6 0%, #ffb3c6 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Segoe UI', 'Quicksand', system-ui, -apple-system, sans-serif;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-            cursor: default;
-        }
+<!-- Шрифт Hello Kitty -->
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
 
-        /* Главная карточка */
-        .card {
-            max-width: 600px;
-            width: 100%;
-            background: rgba(255, 245, 248, 0.96);
-            backdrop-filter: blur(2px);
-            border-radius: 65px 65px 80px 80px;
-            box-shadow: 0 30px 40px rgba(255, 105, 180, 0.3), 0 0 0 12px #fff8, 0 0 0 16px #ff99bb;
-            padding: 35px 25px 50px;
-            text-align: center;
-            transition: transform 0.3s ease;
-            z-index: 10;
-            animation: float 3s infinite ease-in-out;
-        }
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
-        }
+body {
+    min-height: 100vh;
+    background: linear-gradient(145deg, #ffe6f0 0%, #ffccde 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Comic Neue', 'Quicksand', system-ui, -apple-system, sans-serif;
+    padding: 20px;
+    position: relative;
+    overflow-x: hidden;
+    cursor: default;
+}
 
-        /* Анимированное главное сердце (розовое) */
-        .heart-container {
-            margin-bottom: 20px;
-            position: relative;
-            display: inline-block;
-        }
-        .main-heart {
-            font-size: 120px;
-            display: inline-block;
-            animation: heartbeat 1.2s infinite ease-in-out;
-            filter: drop-shadow(0 10px 15px rgba(255, 80, 120, 0.4));
-            cursor: pointer;
-            transition: transform 0.1s;
-            color: #ff4d6d;
-        }
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.18); text-shadow: 0 0 12px #ff99bb; }
-        }
+/* Карточка */
+.card {
+    max-width: 600px;
+    width: 100%;
+    background: rgba(255, 245, 248, 0.96);
+    backdrop-filter: blur(2px);
+    border-radius: 65px 65px 80px 80px;
+    box-shadow: 0 30px 40px rgba(255, 182, 193, 0.3), 0 0 0 12px #fff8, 0 0 0 16px #ffb7c7;
+    padding: 35px 25px 50px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    z-index: 10;
+    animation: float 3s infinite ease-in-out;
+}
 
-        h1 {
-            font-size: 2.5rem;
-            color: #c94f7c;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin: 15px 0 10px;
-            text-shadow: 2px 2px 0 #ffe0ed;
-        }
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
 
-        /* Новая надпись "Люблю тебя" */
-        .greeting {
-            font-size: 1.4rem;
-            color: #b23b66;
-            background: #fff0f5dd;
-            padding: 12px 24px;
-            border-radius: 100px;
-            display: inline-block;
-            margin: 15px 0;
-            font-weight: 700;
-            backdrop-filter: blur(4px);
-            box-shadow: inset 0 1px 2px #fff9, 0 4px 8px #ffb7c7;
-        }
+/* Главная сердечко */
+.heart-container { margin-bottom: 20px; position: relative; display: inline-block; }
+.main-heart {
+    font-size: 120px;
+    display: inline-block;
+    animation: heartbeat 1.2s infinite ease-in-out;
+    filter: drop-shadow(0 10px 15px rgba(255, 105, 180, 0.4));
+    cursor: pointer;
+    transition: transform 0.1s;
+    color: #ff4d6d;
+}
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.18); text-shadow: 0 0 12px #ffb7c7; }
+}
 
-        /* Таймер */
-        .timer-container {
-            background: #ffffffcc;
-            border-radius: 60px;
-            padding: 12px 16px;
-            margin: 15px 0 10px;
-            backdrop-filter: blur(4px);
-            border: 1px solid #ffbfd5;
-        }
-        .timer-label {
-            font-size: 0.9rem;
-            color: #b3446c;
-            letter-spacing: 1px;
-            font-weight: 700;
-        }
-        .timer {
-            font-size: 1.9rem;
-            font-weight: 800;
-            font-family: monospace;
-            color: #c94f7c;
-            background: #fff0f5;
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 50px;
-            margin-top: 8px;
-            letter-spacing: 3px;
-            box-shadow: inset 0 0 0 1px #ffe0ed, 0 4px 12px rgba(0,0,0,0.05);
-        }
+h1 { font-size: 2.5rem; color: #c94f7c; font-weight: 700; letter-spacing: -0.5px; margin: 15px 0 10px; text-shadow: 2px 2px 0 #ffe0ed; }
+.greeting { font-size: 1.4rem; color: #b23b66; background: #fff0f5dd; padding: 12px 24px; border-radius: 100px; display: inline-block; margin: 15px 0; font-weight: 700; backdrop-filter: blur(4px); box-shadow: inset 0 1px 2px #fff9, 0 4px 8px #ffb7c7; }
 
-        /* Кнопка без эмодзи (текст) */
-        .surprise-btn {
-            background: #ff80a5;
-            border: none;
-            color: white;
-            font-size: 1.3rem;
-            font-weight: bold;
-            padding: 14px 28px;
-            border-radius: 60px;
-            cursor: pointer;
-            transition: 0.2s;
-            margin-top: 15px;
-            margin-bottom: 20px;
-            font-family: inherit;
-            box-shadow: 0 8px 0 #b13b62;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .surprise-btn:active {
-            transform: translateY(4px);
-            box-shadow: 0 4px 0 #b13b62;
-        }
+/* Таймер */
+.timer-container { background: #ffffffcc; border-radius: 60px; padding: 12px 16px; margin: 15px 0 10px; backdrop-filter: blur(4px); border: 1px solid #ffbfd5; }
+.timer-label { font-size: 0.9rem; color: #b3446c; letter-spacing: 1px; font-weight: 700; }
+.timer { font-size: 1.9rem; font-weight: 800; font-family: monospace; color: #c94f7c; background: #fff0f5; display: inline-block; padding: 8px 20px; border-radius: 50px; margin-top: 8px; letter-spacing: 3px; box-shadow: inset 0 0 0 1px #ffe0ed, 0 4px 12px rgba(0,0,0,0.05); }
 
-        /* КОНВЕРТ ПО ЦЕНТРУ */
-        .envelope-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            width: 100%;
-        }
-        .envelope {
-            position: relative;
-            width: 280px;
-            height: 170px;
-            background: #ff99bb;
-            border-radius: 0 0 20px 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            transition: all 0.4s ease;
-            cursor: pointer;
-            margin: 0 auto;
-        }
-        .envelope:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #ffb7ce;
-            border-radius: 0 0 20px 20px;
-            z-index: 2;
-        }
-        .envelope .flap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #ff85ae;
-            clip-path: polygon(0% 0%, 50% 50%, 100% 0%);
-            z-index: 3;
-            transform-origin: top;
-            transition: transform 0.5s ease;
-            border-radius: 0 0 0 0;
-        }
-        .envelope.open .flap {
-            transform: rotateX(180deg);
-        }
-        .envelope .letter {
-            position: absolute;
-            bottom: 0;
-            left: 10%;
-            width: 80%;
-            background: #fffef7;
-            padding: 16px 12px;
-            border-radius: 12px 12px 8px 8px;
-            font-size: 0.75rem;
-            color: #b23b66;
-            text-align: center;
-            transition: all 0.4s ease;
-            opacity: 0;
-            transform: translateY(30px);
-            pointer-events: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            font-weight: 500;
-            max-height: 150px;
-            overflow-y: auto;
-            line-height: 1.4;
-            z-index: 5;
-        }
-        .envelope.open .letter {
-            opacity: 1;
-            transform: translateY(-20px);
-            pointer-events: auto;
-        }
-        /* полный текст внутри письма */
-        .letter-text {
-            font-size: 0.8rem;
-            color: #a1355e;
-            font-weight: 500;
-            text-align: left;
-        }
-        .envelope:active {
-            transform: scale(0.98);
-        }
-        .open-hint {
-            font-size: 0.7rem;
-            color: #c94f7c;
-            margin-top: 8px;
-            opacity: 0.8;
-            text-align: center;
-        }
+/* Кнопка бантик */
+.surprise-btn {
+    background: #ff80a5;
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 14px 28px;
+    border-radius: 60px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    font-family: inherit;
+    box-shadow: 0 8px 0 #b13b62;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.surprise-btn:active { transform: translateY(4px); box-shadow: 0 4px 0 #b13b62; }
 
-        .signature {
-            margin-top: 28px;
-            font-size: 0.95rem;
-            color: #e36f99;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
+/* Конверт */
+.envelope-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 15px; margin-bottom: 5px; width: 100%; }
+.envelope { position: relative; width: 280px; height: 170px; background: #ff99bb; border-radius: 0 0 20px 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); transition: all 0.4s ease; cursor: pointer; margin: 0 auto; }
+.envelope:before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #ffb7ce; border-radius: 0 0 20px 20px; z-index: 2; }
+[23.04.2026 21:03] altername: .envelope .flap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #ff85ae; clip-path: polygon(0% 0%, 50% 50%, 100% 0%); z-index: 3; transform-origin: top; transition: transform 0.5s ease; }
+.envelope.open .flap { transform: rotateX(180deg); }
+.envelope .letter { position: absolute; bottom: 0; left: 10%; width: 80%; background: #fffef7; padding: 16px 12px; border-radius: 12px 12px 8px 8px; font-size: 0.75rem; color: #b23b66; text-align: center; transition: all 0.4s ease; opacity: 0; transform: translateY(30px); pointer-events: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); font-weight: 500; max-height: 150px; overflow-y: auto; line-height: 1.4; z-index: 5; }
+.envelope.open .letter { opacity: 1; transform: translateY(-20px); pointer-events: auto; }
+.open-hint { font-size: 0.7rem; color: #c94f7c; margin-top: 8px; opacity: 0.8; text-align: center; }
+.signature { margin-top: 28px; font-size: 0.95rem; color: #e36f99; font-weight: 600; letter-spacing: 0.5px; }
 
-        /* Холст с розовыми сердечками (не эмодзи, а рисованные) */
-        #hearts-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 5;
-        }
+/* Холст с сердечками */
+#hearts-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
 
-        @media (max-width: 550px) {
-            .card {
-                padding: 25px 18px 35px;
-            }
-            .main-heart {
-                font-size: 90px;
-            }
-            h1 {
-                font-size: 1.8rem;
-            }
-            .timer {
-                font-size: 1.4rem;
-                letter-spacing: 2px;
-            }
-            .envelope {
-                width: 240px;
-                height: 150px;
-            }
-            .letter-text {
-                font-size: 0.7rem;
-            }
-            .greeting {
-                font-size: 1.2rem;
-                padding: 10px 20px;
-            }
-        }
-    </style>
+@media (max-width: 550px) {
+    .card { padding: 25px 18px 35px; }
+    .main-heart { font-size: 90px; }
+    h1 { font-size: 1.8rem; }
+    .timer { font-size: 1.4rem; letter-spacing: 2px; }
+    .envelope { width: 240px; height: 150px; }
+    .letter-text { font-size: 0.7rem; }
+    .greeting { font-size: 1.2rem; padding: 10px 20px; }
+}
+</style>
 </head>
 <body>
 
-    <canvas id="hearts-canvas"></canvas>
+<canvas id="hearts-canvas"></canvas>
 
-    <div class="card">
-        <div class="heart-container">
-            <div class="main-heart" id="clickHeart">❤️</div>
-        </div>
-        
-        <h1>С Днём Рождения!</h1>
-        <!-- Исправлено: "Люблю тебя" -->
-        <div class="greeting">Люблю тебя</div>
-        
-        <!-- Таймер с 24 апреля 2008 20:24, надпись "Пройдено дней" -->
-        <div class="timer-container">
-            <div class="timer-label">Пройдено дней</div>
-            <div class="timer" id="countdownTimer">-- -- -- --</div>
-        </div>
+<div class="card">
+    <div class="heart-container">
+        <div class="main-heart">❤️</div>
+    </div>
+    <h1>С Днём Рождения, Любимый!</h1>
+    <div class="greeting">Ты мое самое большое счастье 💕</div>
 
-        <!-- Кнопка без эмодзи -->
-        <button class="surprise-btn" id="surpriseBtn">
-            Открыть конверт
-        </button>
-
-        <!-- Конверт строго по центру -->
-        <div class="envelope-wrapper">
-            <div class="envelope" id="envelope">
-                <div class="flap"></div>
-                <div class="letter">
-                    <div class="letter-text">
-                        Поздравляю тебя с днем рождения, родной. Желаю тебе счастья, денег, успеха, здоровья тебе и близким, чтоб никогда больше не болел и не грустил, солнышко мое.<br><br>
-                        Мне очень нравится проводить с тобой время, я к тебе сильно привязался, каждый день становится лучше чем мог быть. Для меня ты стал близким человеком. Я очень рад что мы с тобой встретили друг друга. Много чего было бы для меня по другому если б не ты. Большое спасибо тебе, думаю, я буду помнить тебя до конца жизни.<br><br>
-                        Мне нравится то, какой ты, тебя сложно описать как человека, но у тебя интересный подход к жизни, хотя у тебя также много трудностей, думаю тебе сейчас очень нелегко, но ты красавчик. Справляешься как то сейчас, значит в будущем тоже все сможешь. Я очень надеюсь что у тебя все будет хорошо, что все получится так, как ты хочешь, мне ты кажешься человеком, который многого добьется в своей жизни. Я не сомневаюсь, что ты обязательно будешь по настоящему счастлив.
-                    </div>
-                </div>
-            </div>
-            <div class="open-hint">(нажми на конверт, чтобы открыть)</div>
-        </div>
-        
-        <!-- Исправлено: "С любовью, твой" -->
-        <div class="signature">
-            С любовью, твой ❤️
-        </div>
+    <div class="timer-container">
+        <div class="timer-label">До твоего дня</div>
+        <div class="timer" id="countdown">00:00:00</div>
     </div>
 
-    <script>
-        (function() {
-            // --------------------------------------------------------------
-            // 1. РОЗОВЫЕ РИСОВАННЫЕ СЕРДЕЧКИ (векторные, розовые)
-            // --------------------------------------------------------------
-            const canvas = document.getElementById('hearts-canvas');
-            const ctx = canvas.getContext('2d');
-            let heartsArray = [];
-            let animationId = null;
-            let canvasWidth, canvasHeight;
+    <button class="surprise-btn" id="openBtn">🎀 Открыть конверт</button>
 
-            function resizeCanvas() {
-                canvasWidth = window.innerWidth;
-                canvasHeight = window.innerHeight;
-                canvas.width = canvasWidth;
-                canvas.height = canvasHeight;
-            }
+    <div class="envelope-wrapper">
+        <div class="envelope" id="envelope">
+            <div class="flap"></div>
+            <div class="letter" id="letter">
+                Дорогой, пусть каждый день приносит радость и улыбки. 
+                Ты самый лучший! 😘
+                <div class="signature">С любовью, твоя Kitty 💖</div>
+            </div>
+        </div>
+        <div class="open-hint">Нажми на конверт</div>
+    </div>
+</div>
 
-            // функция рисования красивого розового сердечка
-            function drawHeart(ctx, x, y, size, opacity) {
-                ctx.save();
-                ctx.globalAlpha = opacity;
-                ctx.beginPath();
-                const widthHeart = size * 0.9;
-                const heightHeart = size;
-                
-                ctx.moveTo(x, y + heightHeart * 0.25);
-                ctx.bezierCurveTo(x, y, x - widthHeart/2, y, x - widthHeart/2, y + heightHeart * 0.25);
-                ctx.bezierCurveTo(x - widthHeart/2, y + heightHeart * 0.6, x, y + heightHeart * 0.85, x, y + heightHeart);
-                ctx.bezierCurveTo(x, y + heightHeart * 0.85, x + widthHeart/2, y + heightHeart * 0.6, x + widthHeart/2, y + heightHeart * 0.25);
-                ctx.bezierCurveTo(x + widthHeart/2, y, x, y, x, y + heightHeart * 0.25);
-                ctx.fillStyle = `rgb(255, 80, 120)`;
-                ctx.fill();
-                // блик
-                ctx.beginPath();
-                ctx.moveTo(x, y + heightHeart * 0.25);
-                ctx.bezierCurveTo(x, y, x - widthHeart/2, y, x - widthHeart/2, y + heightHeart * 0.25);
-                ctx.bezierCurveTo(x - widthHeart/2, y + heightHeart * 0.6, x, y + heightHeart * 0.85, x, y + heightHeart);
-                ctx.bezierCurveTo(x, y + heightHeart * 0.85, x + widthHeart/2, y + heightHeart * 0.6, x + widthHeart/2, y + heightHeart * 0.25);
-                ctx.bezierCurveTo(x + widthHeart/2, y, x, y, x, y + heightHeart * 0.25);
-                ctx.fillStyle = `rgba(255, 140, 170, 0.6)`;
-                ctx.fill();
-                ctx.restore();
-            }
+<audio id="cuteSound" src="https://www.soundjay.com/button/beep-07.mp3" preload="auto"></audio>
 
-            class FallingHeart {
-                constructor(x, y, size, speedX, speedY, opacity) {
-                    this.x = x;
-                    this.y = y;
-                    this.size = size;
-                    this.speedX = speedX;
-                    this.speedY = speedY;
-                    this.opacity = opacity;
-                    this.wobble = Math.random() * Math.PI * 2;
-                }
-                draw() {
-                    if (!ctx) return;
-                    drawHeart(ctx, this.x, this.y, this.size, this.opacity);
-                }
-                update() {
-                    this.x += this.speedX;
-                    this.y += this.speedY;
-                    this.wobble += 0.03;
-                    this.x += Math.sin(this.wobble) * 0.25;
-                    return this.y < canvasHeight + 80 && this.x > -80 && this.x < canvasWidth + 80;
-                }
-            }
+<script>
+// Таймер
+function updateTimer() {
+    const now = new Date();
+    const birthday = new Date(now.getFullYear(), 11, 24, 0, 0, 0); // пример 24 декабря
+    if (now > birthday) birthday.setFullYear(birthday.getFullYear() + 1);
+    const diff = birthday - now;
+    const hrs = String(Math.floor(diff / 1000 / 60 / 60) % 24).padStart(2, '0');
+    const mins = String(Math.floor(diff / 1000 / 60) % 60).padStart(2, '0');
+    const secs = String(Math.floor(diff / 1000) % 60).padStart(2, '0');
+    document.getElementById('countdown').textContent = ${hrs}:${mins}:${secs};
+}
+setInterval(updateTimer, 1000);
+updateTimer();
 
-            function generateHeart() {
-                const size = 14 + Math.random() * 26;
-                const x = Math.random() * canvasWidth;
-                const y = -30 - Math.random() * 120;
-                const speedX = (Math.random() - 0.5) * 0.6;
-                const speedY = 0.9 + Math.random() * 2.1;
-                const opacity = 0.5 + Math.random() * 0.5;
-                return new FallingHeart(x, y, size, speedX, speedY, opacity);
-            }
+// Конверт
+const envelope = document.getElementById('envelope');
+const letter = document.getElementById('letter');
+const openBtn = document.getElementById('openBtn');
+const cuteSound = document.getElementById('cuteSound');
 
-            function initHearts(count = 50) {
-                heartsArray = [];
-                for (let i = 0; i < count; i++) {
-                    heartsArray.push(generateHeart());
-                }
-            }
+function openEnvelope() {
+    envelope.classList.add('open');
+    cuteSound.play();
+}
+openBtn.addEventListener('click', openEnvelope);
+envelope.addEventListener('click', openEnvelope);
 
-            function animateHearts() {
-                if (!ctx) return;
-                ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-                for (let i = 0; i < heartsArray.length; i++) {
-                    const heart = heartsArray[i];
-                    const alive = heart.update();
-                    heart.draw();
-                    if (!alive) {
-                        heartsArray[i] = generateHeart();
-                    }
-                }
-                animationId = requestAnimationFrame(animateHearts);
-            }
+// Сердечки на фоне
+const canvas = document.getElementById('hearts-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-            function startFallingHearts() {
-                if (animationId) cancelAnimationFrame(animationId);
-                resizeCanvas();
-                initHearts(52);
-                animateHearts();
-            }
+const hearts = [];
+function createHeart() {
+    hearts.push({
+        x: Math.random() * canvas.width,
+        y: canvas.height + 10,
+        size: Math.random() * 12 + 8,
+        speed: Math.random() * 1 + 0.5,
+        color: rgba(${255}, ${182}, ${193}, ${Math.random()})
+    });
+}
+for (let i = 0; i < 40; i++) createHeart();
+[23.04.2026 21:03] altername: function animateHearts() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    hearts.forEach(h => {
+        h.y -= h.speed;
+        ctx.beginPath();
+        ctx.moveTo(h.x, h.y);
+        ctx.arc(h.x, h.y, h.size / 2, 0, Math.PI * 2);
+        ctx.fillStyle = h.color;
+        ctx.fill();
+        if (h.y < -10) {
+            h.y = canvas.height + 10;
+            h.x = Math.random() * canvas.width;
+        }
+    });
+    requestAnimationFrame(animateHearts);
+}
+animateHearts();
 
-            function addExtraHearts(count = 12) {
-                for (let i = 0; i < count; i++) {
-                    heartsArray.push(generateHeart());
-                }
-            }
-
-            // --------------------------------------------------------------
-            // 2. ТАЙМЕР: ПРОЙДЕНО ДНЕЙ с 24 апреля 2008 20:24
-            // --------------------------------------------------------------
-            const startDate = new Date(2008, 3, 24, 20, 24, 0);
-            const timerElement = document.getElementById('countdownTimer');
-
-            function updateTimer() {
-                const now = new Date();
-                const diffMs = now - startDate;
-                if (diffMs < 0) {
-                    timerElement.innerText = "0д 0ч 0м 0с";
-                    return;
-                }
-                const totalSeconds = Math.floor(diffMs / 1000);
-                const days = Math.floor(totalSeconds / 86400);
-                const hours = Math.floor((totalSeconds % 86400) / 3600);
-                const minutes = Math.floor((totalSeconds % 3600) / 60);
-                const seconds = totalSeconds % 60;
-                timerElement.innerText = `${days}д ${hours}ч ${minutes}м ${seconds}с`;
-            }
-            setInterval(updateTimer, 1000);
-            updateTimer();
-
-            // --------------------------------------------------------------
-            // 3. ОТКРЫТИЕ КОНВЕРТА (с текстом внутри)
-            // --------------------------------------------------------------
-            const envelope = document.getElementById('envelope');
-            const surpriseBtn = document.getElementById('surpriseBtn');
-            const mainHeart = document.getElementById('clickHeart');
-            let envelopeOpened = false;
-
-            function openEnvelope() {
-                if (envelopeOpened) return;
-                envelopeOpened = true;
-                envelope.classList.add('open');
-                // добавляем уйму розовых сердечек в момент открытия
-                addExtraHearts(40);
-                if (navigator.vibrate) navigator.vibrate(80);
-                surpriseBtn.style.transform = 'scale(0.96)';
-                setTimeout(() => { surpriseBtn.style.transform = ''; }, 200);
-                // дополнительно: сделать плавное появление текста уже гарантировано через CSS
-            }
-
-            // Открытие по кнопке
-            surpriseBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                openEnvelope();
-            });
-
-            // Открытие по клику на сам конверт
-            envelope.addEventListener('click', (e) => {
-                e.stopPropagation();
-                openEnvelope();
-            });
-
-            // Главное сердце: добавляет сердечки + подсказка
-            mainHeart.addEventListener('click', (e) => {
-                e.stopPropagation();
-                addExtraHearts(22);
-                mainHeart.style.transform = 'scale(1.3)';
-                setTimeout(() => { mainHeart.style.transform = ''; }, 200);
-                if (!envelopeOpened) {
-                    surpriseBtn.style.backgroundColor = '#ff5e8e';
-                    setTimeout(() => {
-                        surpriseBtn.style.backgroundColor = '#ff80a5';
-                    }, 300);
-                }
-            });
-
-            // Небольшая магия: клик по карточке (но не по важным элементам) добавляет пару сердечек
-            document.querySelector('.card').addEventListener('click', (e) => {
-                if (e.target === surpriseBtn || e.target === envelope || envelope.contains(e.target) || e.target === mainHeart) return;
-                addExtraHearts(6);
-            });
-
-            // Приятные мелочи: наведение
-            envelope.addEventListener('mouseenter', () => { addExtraHearts(4); });
-            surpriseBtn.addEventListener('mouseenter', () => { addExtraHearts(6); });
-            mainHeart.addEventListener('mouseenter', () => { addExtraHearts(8); });
-
-            // запуск падающих сердечек
-            window.addEventListener('load', () => {
-                resizeCanvas();
-                if (animationId) cancelAnimationFrame(animationId);
-                startFallingHearts();
-                envelope.classList.remove('open');
-                envelopeOpened = false;
-            });
-            window.addEventListener('resize', () => {
-                resizeCanvas();
-            });
-        })();
-    </script>
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
 </body>
 </html>
