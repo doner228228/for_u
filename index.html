@@ -5,119 +5,99 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>С Днём Рождения, Любимый!</title>
 
-<!-- Шрифт Hello Kitty -->
 <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    user-select: none;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
 
 body {
     min-height: 100vh;
-    background: linear-gradient(145deg, #ffe6f0 0%, #ffccde 100%);
+    background: linear-gradient(145deg, #ffe6f0 0%, #ffccd6 100%);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Comic Neue', 'Quicksand', system-ui, -apple-system, sans-serif;
-    padding: 20px;
-    position: relative;
+    font-family: 'Comic Neue', system-ui, sans-serif;
     overflow-x: hidden;
-    cursor: default;
+    position: relative;
+    padding: 20px;
+}
+
+/* Сердечки на фоне */
+#hearts-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
 }
 
 /* Карточка */
 .card {
     max-width: 600px;
     width: 100%;
-    background: rgba(255, 245, 248, 0.96);
-    backdrop-filter: blur(2px);
-    border-radius: 65px 65px 80px 80px;
-    box-shadow: 0 30px 40px rgba(255, 182, 193, 0.3), 0 0 0 12px #fff8, 0 0 0 16px #ffb7c7;
-    padding: 35px 25px 50px;
+    background: rgba(255, 245, 248, 0.95);
+    backdrop-filter: blur(4px);
+    border-radius: 50px;
+    box-shadow: 0 25px 40px rgba(255, 182, 193, 0.3);
     text-align: center;
-    transition: transform 0.3s ease;
+    padding: 35px 25px 50px;
+    position: relative;
     z-index: 10;
     animation: float 3s infinite ease-in-out;
 }
+@keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)} }
 
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
-    100% { transform: translateY(0px); }
-}
-
-/* Главная сердечко */
-.heart-container { margin-bottom: 20px; position: relative; display: inline-block; }
 .main-heart {
     font-size: 120px;
-    display: inline-block;
     animation: heartbeat 1.2s infinite ease-in-out;
-    filter: drop-shadow(0 10px 15px rgba(255, 105, 180, 0.4));
-    cursor: pointer;
-    transition: transform 0.1s;
     color: #ff4d6d;
+    cursor: default;
+    margin-bottom: 20px;
 }
 @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.18); text-shadow: 0 0 12px #ffb7c7; }
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.18); text-shadow: 0 0 12px #ffb7c7;}
 }
 
-h1 { font-size: 2.5rem; color: #c94f7c; font-weight: 700; letter-spacing: -0.5px; margin: 15px 0 10px; text-shadow: 2px 2px 0 #ffe0ed; }
-.greeting { font-size: 1.4rem; color: #b23b66; background: #fff0f5dd; padding: 12px 24px; border-radius: 100px; display: inline-block; margin: 15px 0; font-weight: 700; backdrop-filter: blur(4px); box-shadow: inset 0 1px 2px #fff9, 0 4px 8px #ffb7c7; }
+h1 { font-size: 2.5rem; color: #c94f7c; margin: 10px 0; text-shadow: 2px 2px 0 #ffe0ed; }
+.love-text { font-size: 1.5rem; color: #ff3b7a; font-weight: bold; margin: 15px 0; }
 
-/* Таймер */
-.timer-container { background: #ffffffcc; border-radius: 60px; padding: 12px 16px; margin: 15px 0 10px; backdrop-filter: blur(4px); border: 1px solid #ffbfd5; }
-.timer-label { font-size: 0.9rem; color: #b3446c; letter-spacing: 1px; font-weight: 700; }
-.timer { font-size: 1.9rem; font-weight: 800; font-family: monospace; color: #c94f7c; background: #fff0f5; display: inline-block; padding: 8px 20px; border-radius: 50px; margin-top: 8px; letter-spacing: 3px; box-shadow: inset 0 0 0 1px #ffe0ed, 0 4px 12px rgba(0,0,0,0.05); }
+.timer-container {
+    background: #fff0f5cc; border-radius: 60px; padding: 12px 16px;
+    margin: 15px 0; border: 1px solid #ffbfd5;
+}
+.timer-label { font-size: 0.9rem; color: #b3446c; font-weight: 700; }
+.timer { font-size: 1.8rem; font-family: monospace; font-weight: 800; color: #c94f7c; margin-top: 5px; }
 
-/* Кнопка бантик */
 .surprise-btn {
-    background: #ff80a5;
-    border: none;
-    color: white;
-    font-size: 1.3rem;
-    font-weight: bold;
-    padding: 14px 28px;
-    border-radius: 60px;
-    cursor: pointer;
-    transition: 0.2s;
-    margin-top: 15px;
-    margin-bottom: 20px;
-    font-family: inherit;
-    box-shadow: 0 8px 0 #b13b62;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    background: #ff80a5; color: white; border: none; font-size: 1.3rem;
+    font-weight: bold; padding: 14px 28px; border-radius: 60px; cursor: pointer;
+    margin-top: 15px; box-shadow: 0 8px 0 #b13b62;
 }
 .surprise-btn:active { transform: translateY(4px); box-shadow: 0 4px 0 #b13b62; }
 
-/* Конверт */
-.envelope-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 15px; margin-bottom: 5px; width: 100%; }
-.envelope { position: relative; width: 280px; height: 170px; background: #ff99bb; border-radius: 0 0 20px 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.2); transition: all 0.4s ease; cursor: pointer; margin: 0 auto; }
-.envelope:before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #ffb7ce; border-radius: 0 0 20px 20px; z-index: 2; }
-[23.04.2026 21:03] altername: .envelope .flap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #ff85ae; clip-path: polygon(0% 0%, 50% 50%, 100% 0%); z-index: 3; transform-origin: top; transition: transform 0.5s ease; }
+.envelope-wrapper { display: flex; flex-direction: column; align-items: center; margin-top: 15px; }
+.envelope { position: relative; width: 280px; height: 170px; background: #ff99bb; border-radius: 0 0 20px 20px; cursor: pointer; margin: 0 auto; }
+.envelope .flap { position: absolute; top: 0; width: 100%; height: 100%; background: #ff85ae; clip-path: polygon(0% 0%, 50% 50%, 100% 0%); transform-origin: top; transition: transform 0.5s ease; }
 .envelope.open .flap { transform: rotateX(180deg); }
-.envelope .letter { position: absolute; bottom: 0; left: 10%; width: 80%; background: #fffef7; padding: 16px 12px; border-radius: 12px 12px 8px 8px; font-size: 0.75rem; color: #b23b66; text-align: center; transition: all 0.4s ease; opacity: 0; transform: translateY(30px); pointer-events: none; box-shadow: 0 5px 15px rgba(0,0,0,0.1); font-weight: 500; max-height: 150px; overflow-y: auto; line-height: 1.4; z-index: 5; }
+.envelope .letter {
+    position: absolute; bottom: 0; left: 10%; width: 80%; background: #fffef7;
+    padding: 16px 12px; border-radius: 12px 12px 8px 8px;
+    font-size: 0.8rem; color: #b23b66; text-align: left;
+    opacity: 0; transform: translateY(30px); transition: all 0.5s ease; pointer-events: none;
+    max-height: 250px; overflow-y: auto; line-height: 1.4; font-weight: 500;
+}
 .envelope.open .letter { opacity: 1; transform: translateY(-20px); pointer-events: auto; }
-.open-hint { font-size: 0.7rem; color: #c94f7c; margin-top: 8px; opacity: 0.8; text-align: center; }
-.signature { margin-top: 28px; font-size: 0.95rem; color: #e36f99; font-weight: 600; letter-spacing: 0.5px; }
 
-/* Холст с сердечками */
-#hearts-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
+.signature { margin-top: 15px; color: #e36f99; font-weight: 600; }
 
 @media (max-width: 550px) {
-    .card { padding: 25px 18px 35px; }
     .main-heart { font-size: 90px; }
     h1 { font-size: 1.8rem; }
-    .timer { font-size: 1.4rem; letter-spacing: 2px; }
+    .timer { font-size: 1.4rem; }
     .envelope { width: 240px; height: 150px; }
-    .letter-text { font-size: 0.7rem; }
-    .greeting { font-size: 1.2rem; padding: 10px 20px; }
 }
 </style>
 </head>
@@ -126,11 +106,9 @@ h1 { font-size: 2.5rem; color: #c94f7c; font-weight: 700; letter-spacing: -0.5px
 <canvas id="hearts-canvas"></canvas>
 
 <div class="card">
-    <div class="heart-container">
-        <div class="main-heart">❤️</div>
-    </div>
-    <h1>С Днём Рождения, Любимый!</h1>
-    <div class="greeting">Ты мое самое большое счастье 💕</div>
+    <div class="main-heart">❤️</div>
+    <h1>С Днём Рождения!</h1>
+    <div class="love-text">Я тебя люблю 💖</div>
 
     <div class="timer-container">
         <div class="timer-label">До твоего дня</div>
@@ -138,17 +116,16 @@ h1 { font-size: 2.5rem; color: #c94f7c; font-weight: 700; letter-spacing: -0.5px
     </div>
 
     <button class="surprise-btn" id="openBtn">🎀 Открыть конверт</button>
-
-    <div class="envelope-wrapper">
+[23.04.2026 21:57] altername: <div class="envelope-wrapper">
         <div class="envelope" id="envelope">
             <div class="flap"></div>
             <div class="letter" id="letter">
-                Дорогой, пусть каждый день приносит радость и улыбки. 
-                Ты самый лучший! 😘
-                <div class="signature">С любовью, твоя Kitty 💖</div>
+Поздравляю тебя с днем рождения, мой единственный. Желаю тебе счастья, денег, успеха, здоровья тебе и близким, чтоб никогда больше не болел и не грустил, солнышко мое.
+Мне очень нравится проводить с тобой время, я к тебе сильно привязался, каждый день становится лучше чем мог быть. Для меня ты стал очень дорогим и близким человеком. Я очень рад что мы с тобой встретили друг друга. Много чего было бы для меня по другому если б не ты. Большое спасибо тебе, думаю, я буду помнить тебя до конца своей жизни.
+Мне нравится то, какой ты, тебя сложно описать как человека, у тебя нестандартное отношение к жизни, и к сожалению очень много трудностей, думаю тебе сейчас очень нелегко, но ты молодец. Справляешься как то сейчас, значит в будущем тоже все сможешь. Я очень надеюсь что у тебя все будет хорошо, что все получится так, как ты хочешь, мне ты кажешься человеком, который многого добьется в своей жизни. Я не сомневаюсь, что ты обязательно будешь по настоящему счастлив.
+<div class="signature">С любовью, твоя Kitty 💖</div>
             </div>
         </div>
-        <div class="open-hint">Нажми на конверт</div>
     </div>
 </div>
 
@@ -158,15 +135,15 @@ h1 { font-size: 2.5rem; color: #c94f7c; font-weight: 700; letter-spacing: -0.5px
 // Таймер
 function updateTimer() {
     const now = new Date();
-    const birthday = new Date(now.getFullYear(), 11, 24, 0, 0, 0); // пример 24 декабря
-    if (now > birthday) birthday.setFullYear(birthday.getFullYear() + 1);
+    const birthday = new Date(now.getFullYear(), 11, 24); // пример: 24 декабря
+    if(now > birthday) birthday.setFullYear(birthday.getFullYear()+1);
     const diff = birthday - now;
-    const hrs = String(Math.floor(diff / 1000 / 60 / 60) % 24).padStart(2, '0');
-    const mins = String(Math.floor(diff / 1000 / 60) % 60).padStart(2, '0');
-    const secs = String(Math.floor(diff / 1000) % 60).padStart(2, '0');
+    const hrs = String(Math.floor(diff/1000/60/60)%24).padStart(2,'0');
+    const mins = String(Math.floor(diff/1000/60)%60).padStart(2,'0');
+    const secs = String(Math.floor(diff/1000)%60).padStart(2,'0');
     document.getElementById('countdown').textContent = ${hrs}:${mins}:${secs};
 }
-setInterval(updateTimer, 1000);
+setInterval(updateTimer,1000);
 updateTimer();
 
 // Конверт
@@ -182,45 +159,38 @@ function openEnvelope() {
 openBtn.addEventListener('click', openEnvelope);
 envelope.addEventListener('click', openEnvelope);
 
-// Сердечки на фоне
+// Сердечки
 const canvas = document.getElementById('hearts-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const hearts = [];
-function createHeart() {
+const hearts=[];
+function createHeart(){
     hearts.push({
-        x: Math.random() * canvas.width,
-        y: canvas.height + 10,
-        size: Math.random() * 12 + 8,
-        speed: Math.random() * 1 + 0.5,
-        color: rgba(${255}, ${182}, ${193}, ${Math.random()})
+        x:Math.random()*canvas.width,
+        y:canvas.height+10,
+        size:Math.random()*12+8,
+        speed:Math.random()*1+0.5,
+        color:rgba(255,182,193,${Math.random()})
     });
 }
-for (let i = 0; i < 40; i++) createHeart();
-[23.04.2026 21:03] altername: function animateHearts() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    hearts.forEach(h => {
-        h.y -= h.speed;
+for(let i=0;i<40;i++) createHeart();
+
+function animateHearts(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    hearts.forEach(h=>{
+        h.y-=h.speed;
         ctx.beginPath();
-        ctx.moveTo(h.x, h.y);
-        ctx.arc(h.x, h.y, h.size / 2, 0, Math.PI * 2);
-        ctx.fillStyle = h.color;
+        ctx.arc(h.x,h.y,h.size/2,0,Math.PI*2);
+        ctx.fillStyle=h.color;
         ctx.fill();
-        if (h.y < -10) {
-            h.y = canvas.height + 10;
-            h.x = Math.random() * canvas.width;
-        }
+        if(h.y<-10){h.y=canvas.height+10; h.x=Math.random()*canvas.width;}
     });
     requestAnimationFrame(animateHearts);
 }
 animateHearts();
-
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight;});
 </script>
 </body>
 </html>
